@@ -63,12 +63,3 @@ listener "tcp" {
   tls_disable_client_certs           = "${vault_tls_disable_client_certs}"
   tls_require_and_verify_client_cert = "${vault_tls_require_and_verify_client_cert}"
 }
-
-# Send data to statsd (Stackdriver monitoring)
-telemetry {
-  stackdriver_project_id = "${stackdriver_project_id}"
-  stackdriver_location   = "$${stackdriver_location}"
-  stackdriver_namespace  = "vault"
-  disable_hostname       = true
-  enable_hostname_label  = true
-}

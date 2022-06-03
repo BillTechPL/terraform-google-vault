@@ -42,7 +42,6 @@ useradd -d /etc/vault.d -s /bin/false vault
 # Vault config
 mkdir -p /etc/vault.d
 mkdir /etc/vault.d/plugins
-export stackdriver_location=$(basename `curl -s "http://metadata.google.internal/computeMetadata/v1/instance/zone" -H "Metadata-Flavor: Google"`)
 envsubst <<"EOF" > /etc/vault.d/config.hcl
 ${config}
 EOF

@@ -56,6 +56,5 @@ data "template_file" "vault-config" {
     vault_tls_disable_client_certs           = var.vault_tls_disable_client_certs
     vault_tls_require_and_verify_client_cert = var.vault_tls_require_and_verify_client_cert
     vault_ui_enabled                         = var.vault_ui_enabled
-    stackdriver_project_id                   = var.project_id
   }
 }
