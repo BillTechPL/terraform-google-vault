@@ -112,7 +112,6 @@ resource "tls_locally_signed_cert" "vault-server" {
   count = local.manage_tls_count
 
   cert_request_pem   = tls_cert_request.vault-server[0].cert_request_pem
-  ca_key_algorithm   = tls_private_key.root[0].algorithm
   ca_private_key_pem = tls_private_key.root[0].private_key_pem
   ca_cert_pem        = tls_self_signed_cert.root[0].cert_pem
 
