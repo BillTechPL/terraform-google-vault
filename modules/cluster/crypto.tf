@@ -94,7 +94,6 @@ resource "tls_private_key" "vault-server" {
 resource "tls_cert_request" "vault-server" {
   count = local.manage_tls_count
 
-  key_algorithm   = tls_private_key.vault-server[0].algorithm
   private_key_pem = tls_private_key.vault-server[0].private_key_pem
 
   dns_names = var.tls_dns_names
