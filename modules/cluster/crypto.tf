@@ -54,7 +54,6 @@ resource "tls_private_key" "root" {
 resource "tls_self_signed_cert" "root" {
   count = local.manage_tls_count
 
-  key_algorithm   = tls_private_key.root[0].algorithm
   private_key_pem = tls_private_key.root[0].private_key_pem
 
   subject {

@@ -20,7 +20,7 @@ terraform {
 
     tls = {
       source  = "hashicorp/tls"
-      version = "~> 2.1"
+      version = ">= 4.0"
     }
 
     google = {
@@ -35,11 +35,11 @@ terraform {
   }
 
   provider_meta "google" {
-    module_name = "blueprints/terraform/terraform-google-vault:cluster/v6.2.0"
+    module_name = "blueprints/terraform/terraform-google-vault:cluster/v6.3.0"
   }
 
   provider_meta "google-beta" {
-    module_name = "blueprints/terraform/terraform-google-vault:cluster/v6.2.0"
+    module_name = "blueprints/terraform/terraform-google-vault:cluster/v6.3.0"
   }
 
 }

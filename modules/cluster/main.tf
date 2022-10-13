@@ -73,11 +73,11 @@ resource "google_compute_instance_template" "vault" {
   }
 
   metadata = merge(
-  var.vault_instance_metadata,
-  {
-    "google-compute-enable-virtio-rng" = "true"
-    "startup-script"                   = data.template_file.vault-startup-script.rendered
-  },
+    var.vault_instance_metadata,
+    {
+      "google-compute-enable-virtio-rng" = "true"
+      "startup-script"                   = templatefile(local.vaultStartupScript.template, local.vaultStartupScript.vars)
+    },
   )
 
   lifecycle {
@@ -182,7 +182,6 @@ resource "google_compute_forwarding_rule" "external" {
   target     = google_compute_target_pool.vault[0].self_link
   port_range = var.vault_port
 }
-
 
 
 # Vault instance group manager
