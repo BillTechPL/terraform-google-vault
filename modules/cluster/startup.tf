@@ -16,7 +16,7 @@
 
 locals {
   vaultStartupScript = {
-    template = file("${path.module}/templates/startup.sh.tpl")
+    template = "${path.module}/templates/startup.sh.tpl"
 
     vars = {
       config                  = templatefile(local.vaultConfig.template, local.vaultConfig.vars)
@@ -38,7 +38,7 @@ locals {
   }
 
   vaultConfig = {
-    template = file(format("%s/templates/config.hcl.tpl", path.module))
+    template = "${path.module}/templates/config.hcl.tpl"
 
     vars = {
       kms_project                              = var.project_id
