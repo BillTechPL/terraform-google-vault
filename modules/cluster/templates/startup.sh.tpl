@@ -186,6 +186,45 @@ if ( $programname == "vault" ) then {
 EOF
 systemctl restart rsyslog
 
+# Configure reading audit logs for Google Ops Agent
+
+mkdir -p /etc/google-cloud-ops-agent
+cat << EOF > /etc/google-cloud-ops-agent/config.yaml
+metrics:
+  receivers:
+    hostmetrics:
+      type: hostmetrics
+      collection_interval: 60s
+  service:
+    pipelines:
+      hostmetrics:
+        receivers:
+          - hostmetrics
+logging:
+  receivers:
+    syslog:
+      type: files
+      include_paths:
+      - /var/log/messages
+      - /var/log/syslog
+    vault_audit:
+      type: files
+      include_paths: [/var/log/vault/audit.log]
+    vault_server:
+      type: files
+      include_paths: [/var/log/vault/server.log]
+  service:
+    pipelines:
+      default_pipeline:
+        receivers: [syslog]
+      vault_audit:
+        receivers:
+          - vault_audit
+      vault_server:
+        receivers:
+          - vault_server
+EOF
+
 # Install Ops Agent for logging and monitoring
 curl -sSO https://dl.google.com/cloudagents/add-google-cloud-ops-agent-repo.sh
 sudo bash add-google-cloud-ops-agent-repo.sh --also-install
