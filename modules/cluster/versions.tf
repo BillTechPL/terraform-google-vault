@@ -35,11 +35,11 @@ terraform {
   }
 
   provider_meta "google" {
-    module_name = "blueprints/terraform/terraform-google-vault:cluster/v6.3.4"
+    module_name = "blueprints/terraform/terraform-google-vault:cluster/v6.3.5"
   }
 
   provider_meta "google-beta" {
-    module_name = "blueprints/terraform/terraform-google-vault:cluster/v6.3.4"
+    module_name = "blueprints/terraform/terraform-google-vault:cluster/v6.3.5"
   }
 
 }
