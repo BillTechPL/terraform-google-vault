@@ -186,7 +186,11 @@ if ( $programname == "vault" ) then {
 EOF
 systemctl restart rsyslog
 
-# Configure reading audit logs for Google Ops Agent
+# Install Ops Agent for logging and monitoring
+curl -sSO https://dl.google.com/cloudagents/add-google-cloud-ops-agent-repo.sh
+sudo bash add-google-cloud-ops-agent-repo.sh --also-install
+
+# Configure reading audit logs and metrics for Google Ops Agent
 
 mkdir -p /etc/google-cloud-ops-agent
 cat << EOF > /etc/google-cloud-ops-agent/config.yaml
@@ -225,9 +229,9 @@ logging:
           - vault_server
 EOF
 
-# Install Ops Agent for logging and monitoring
-curl -sSO https://dl.google.com/cloudagents/add-google-cloud-ops-agent-repo.sh
-sudo bash add-google-cloud-ops-agent-repo.sh --also-install
+# Restart Google Ops Agent to apply new config
+
+systemctl restart google-cloud-ops-agent
 
 # Install logrotate
 apt-get install -yqq logrotate
