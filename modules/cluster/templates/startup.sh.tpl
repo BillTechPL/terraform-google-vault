@@ -217,6 +217,9 @@ logging:
     vault_server:
       type: files
       include_paths: [/var/log/vault/server.log]
+  processors:
+    parse_json:
+      type: parse_json
   service:
     pipelines:
       default_pipeline:
@@ -224,9 +227,13 @@ logging:
       vault_audit:
         receivers:
           - vault_audit
+        processors:
+          - parse_json
       vault_server:
         receivers:
           - vault_server
+        processors:
+          - parse_json
 EOF
 
 # Restart Google Ops Agent to apply new config
