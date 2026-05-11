@@ -247,7 +247,7 @@ apt-get install -yqq logrotate
 mkdir -p /etc/logrotate.d
 cat <<"EOF" > /etc/logrotate.d/vaultproject.io
 /var/log/vault/*.log {
-  daily
+  size 512M
   rotate 3
   missingok
   compress
