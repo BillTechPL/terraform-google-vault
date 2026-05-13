@@ -247,8 +247,8 @@ apt-get install -yqq logrotate
 mkdir -p /etc/logrotate.d
 cat <<"EOF" > /etc/logrotate.d/vaultproject.io
 /var/log/vault/*.log {
-  size 512M
-  rotate 3
+  size 256M
+  rotate 2
   missingok
   compress
   notifempty
@@ -260,6 +260,14 @@ cat <<"EOF" > /etc/logrotate.d/vaultproject.io
   endscript
 }
 EOF
+
+# Create a dedicated cron job to check Vault log sizes
+cat <<"EOF" > /etc/cron.d/vault-logrotate
+0 0,4,8,18,21 * * * root /usr/sbin/logrotate /etc/logrotate.d/vaultproject.io
+EOF
+
+# Set required permissions for cron
+chmod 0644 /etc/cron.d/vault-logrotate
 
 
 #########################################
